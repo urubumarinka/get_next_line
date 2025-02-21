@@ -6,14 +6,12 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:37:44 by maborges          #+#    #+#             */
-/*   Updated: 2025/02/21 11:09:29 by maborges         ###   ########.fr       */
+/*   Updated: 2025/02/21 18:02:18 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <fcntl.h>
 #include <stdio.h>
-
 
 int	main(void)
 {
@@ -23,7 +21,7 @@ int	main(void)
 
 	line_number = 0;
 	fd = open("multiline.txt", O_RDONLY);
-	if (fd == -1)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 	{
 		printf("This looks like an error!");
 		return (1);

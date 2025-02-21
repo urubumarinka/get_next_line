@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 15:33:09 by maborges          #+#    #+#             */
-/*   Updated: 2025/02/21 15:28:19 by maborges         ###   ########.fr       */
+/*   Updated: 2025/02/21 18:19:28 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,45 @@ char	*ft_strchr(const char *s, int c)
 	if ((char)c == '\0')
 		return ((char *)&s[i]);
 	return (NULL);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*tmpstr;
+	size_t	i;
+	size_t	j;
+	size_t	count;
+
+	if (!s1 || !s2)
+		return (NULL);
+	i = ft_strlen(s1);
+	j = ft_strlen(s2);
+	tmpstr = malloc((i + j + 1) * sizeof(char));
+	if (!tmpstr)
+		return (NULL);
+	count = 0;
+	while (count < i)
+	{
+		tmpstr[count] = s1[count];
+		count++;
+	}
+	while (count < j + i)
+	{
+		tmpstr[count] = s2[count - i];
+		count++;
+	}
+	tmpstr[count] = '\0';
+	return (tmpstr);
 }
