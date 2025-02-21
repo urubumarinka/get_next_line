@@ -6,20 +6,23 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 15:33:29 by maborges          #+#    #+#             */
-/*   Updated: 2025/02/17 19:31:40 by maborges         ###   ########.fr       */
+/*   Updated: 2025/02/21 11:09:30 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# ifndef BUFFER_SIZE_
-#define BUFFER_SIZE_ 42
+# include <unistd.h> /* for read() */
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
 # endif
 
-# include <unistd.h> /* for read() and */
 # include <stdlib.h> /* free and malloc */
 
-char	*get_next_line(int fd);
+char		*get_next_line(int fd);
+void		*ft_calloc(size_t nmemb, size_t size);
+void		*ft_memset(void *s, int c, size_t n);
 
 #endif
