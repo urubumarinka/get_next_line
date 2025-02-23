@@ -7,10 +7,4 @@
 		}
 	},
 	"postCreateCommand": "sudo apt-get update && sudo apt-get install -y gcc make valgrind gdb && sudo python3 -m pip install --upgrade pip setuptools && sudo python3 -m pip install norminette",
-	"extensions": [
-		"ms-python.python",
-		"ms-vscode.cpptools",
-		"jeff-hykin.better-cpp-syntax"
-	]
 }
-
