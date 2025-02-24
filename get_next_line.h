@@ -28,5 +28,10 @@ void		*ft_memset(void *s, int c, size_t n);
 char		*ft_strchr(const char *s, int c);
 size_t		ft_strlen(const char *s);
 char		*ft_strjoin(char const *s1, char const *s2);
+static char	*extract_line(char *stash);
+static char	*leftover(char *stash);
+char		*join_buffers(stash, char *tmp);
+
+
 
 #endif
