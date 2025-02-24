@@ -16,19 +16,21 @@
 static char	*ft_read_file(char *stash, int fd)
 {
 	char		*tmpbuff;
-	int			sz;
+	int			bytes_read;
 	static int	count;
 
-	sz = 1;
+	bytes_read = 1;
+	count = 1;
 	printf("ft_calloc #%d --", count++);
 	tmpbuff = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
 	if (!tmpbuff)
 		return (free(tmpbuff), NULL);
-	sz = read(fd, (char *)tmpbuff, BUFFER_SIZE);
-	tmpbuff[sz] = '\0';
+	bytes_read = read(fd, (char *)tmpbuff, BUFFER_SIZE);
+	tmpbuff[bytes_read] = '\0';
 	ft_strjoin(stash, tmpbuff);
-	if (sz <= 0)
+	if (bytes_read <= 0)
 		return (free(tmpbuff), NULL);
+	free(tmpbuff);
 	return (stash);
 }
 
@@ -37,10 +39,10 @@ char	*get_next_line(int fd)
 	static char		*stash;
 	char 			*line;
 
-	while (!ft_strchr(stash, '\n'))
+	stash = ft_read_file(stash, fd);
+	/* while (!ft_strchr(stash, '\n'))
 	{
-		stash = ft_read_file(stash, fd);
-	}
+	} */
 	//need to find the first new line char in the stash
 	//use strchr to find the newline char
 	//take out the line you want with substr
