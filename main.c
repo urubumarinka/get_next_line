@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:37:44 by maborges          #+#    #+#             */
-/*   Updated: 2025/02/21 18:02:18 by maborges         ###   ########.fr       */
+/*   Updated: 2025/02/24 17:21:54 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(void)
 			return (0);
 		line_number++;
 		printf("%d :: %s\n", line_number, line);
-		free(line);
+		//free(line);
 		line = NULL;
 	}
 	close(fd);

@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 15:33:29 by maborges          #+#    #+#             */
-/*   Updated: 2025/02/24 14:24:27 by maborges         ###   ########.fr       */
+/*   Updated: 2025/02/24 17:21:57 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <fcntl.h> /* for read() flags*/
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 1
 # endif
 
 # include <stdlib.h> /* free and malloc */
