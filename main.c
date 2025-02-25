@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:37:44 by maborges          #+#    #+#             */
-/*   Updated: 2025/02/24 17:21:54 by maborges         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:01:04 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,21 @@ int	main(void)
 	int		line_number;
 
 	line_number = 0;
-	fd = open("multiline.txt", O_RDONLY);
+	fd = open("onechar.txt", O_RDONLY);
 	if (fd < 0 || BUFFER_SIZE <= 0)
 	{
 		printf("This looks like an error!");
 		return (1);
 	}
-	while (1)
+	while ((line = get_next_line(fd)) != NULL)
 	{
-		line = get_next_line(fd);
 		if (!line)
 			return (0);
 		line_number++;
-		printf("%d :: %s\n", line_number, line);
-		//free(line);
-		line = NULL;
+		printf("%d :: %s", line_number, line);
+		free(line);
 	}
+	get_next_line(-1);
 	close(fd);
 	return (0);
 }

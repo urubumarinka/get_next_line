@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 15:33:29 by maborges          #+#    #+#             */
-/*   Updated: 2025/02/24 17:21:57 by maborges         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:19:22 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <fcntl.h> /* for read() flags*/
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 999
 # endif
 
 # include <stdlib.h> /* free and malloc */
@@ -28,9 +28,6 @@ void		*ft_memset(void *s, int c, size_t n);
 char		*ft_strchr(const char *s, int c);
 size_t		ft_strlen(const char *s);
 char		*ft_strjoin(char const *s1, char const *s2);
-static char	*extract_line(char *stash);
-static char	*leftover(char *stash);
-static char	*join_buffers(char *stash, char *tmp);
-
+char		*ft_strdup(const char *s);
 
 #endif

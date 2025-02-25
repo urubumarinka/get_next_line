@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 15:32:43 by maborges          #+#    #+#             */
-/*   Updated: 2025/02/24 17:25:41 by maborges         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:55:44 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,20 @@ static char	*join_buffers(char *stash, char *tmpbuff)
 static char	*leftover(char *stash)
 {
 	char	*remaining_line;
+	char	*newstash;
 
 	remaining_line = ft_strchr(stash, '\n');
 	if (remaining_line)
+	{
 		remaining_line += 1;
-	return (remaining_line);
+		newstash = ft_strdup(remaining_line);
+		free(stash);
+		if (!newstash)
+			return (NULL);
+		return (newstash);
+	}
+	free(stash);
+	return (NULL);
 }
 
 static char	*extract_line(char *stash)
@@ -67,12 +76,16 @@ static char	*ft_read_file(char *stash, int fd)
 	bytes_read = 1;
 	tmpbuff = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
 	if (!tmpbuff)
-		return (free(tmpbuff), NULL);
+		return (free(stash), NULL);
 	while (bytes_read > 0)
 	{
 		bytes_read = read(fd, tmpbuff, BUFFER_SIZE);
 		if (bytes_read <= 0)
-			return (free(tmpbuff), NULL);
+		{
+			free (tmpbuff);
+			free (stash);
+			return (NULL);
+		}
 		tmpbuff[bytes_read] = '\0';
 		stash = join_buffers(stash, tmpbuff);
 		if (ft_strchr(stash, '\n'))
@@ -88,13 +101,19 @@ char	*get_next_line(int fd)
 	char			*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	{
+		if (stash)
+			free(stash);
 		return (NULL);
+	}
 	if (!stash)
 		stash = ft_calloc(1, sizeof(char));
-	if (!ft_strchr(stash, '\n'))
+	if (!stash)
+		return (NULL);
+	if (stash && !ft_strchr(stash, '\n'))
 		stash = ft_read_file(stash, fd);
 	if (!stash)
-		return (free(stash), NULL);
+		return (NULL);
 	line = extract_line(stash);
 	stash = leftover(stash);
 	return (line);
