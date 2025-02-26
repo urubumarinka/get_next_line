@@ -6,35 +6,32 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 15:33:09 by maborges          #+#    #+#             */
-/*   Updated: 2025/02/25 15:49:55 by maborges         ###   ########.fr       */
+/*   Updated: 2025/02/26 12:46:50 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	*ft_memset(void *s, int c, size_t n)
-{
-	unsigned char	*str;
-
-	str = (unsigned char *)s;
-	while (n > 0)
-	{
-		str[n - 1] = (unsigned char)c;
-		n--;
-	}
-	return ((void *)s);
-}
-
 void	*ft_calloc(size_t nmemb, size_t size)
 {
-	void	*array;
+	void			*array;
+	size_t			i;
+	size_t			total_size;
 
 	if (nmemb == 0 || size == 0)
-		return (0);
+		return (NULL);
+	total_size = nmemb * size;
+	if (nmemb > 0 && size > 0 && (total_size / nmemb) != size)
+		return (NULL);
 	array = malloc(nmemb * size);
 	if (!array)
 		return (NULL);
-	ft_memset(array, 0, nmemb * size);
+	i = 0;
+	while (i < total_size)
+	{
+		((unsigned char *)array)[i] = 0;
+		i++;
+	}
 	return (array);
 }
 

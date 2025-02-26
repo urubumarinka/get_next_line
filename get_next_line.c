@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 15:32:43 by maborges          #+#    #+#             */
-/*   Updated: 2025/02/25 15:55:44 by maborges         ###   ########.fr       */
+/*   Updated: 2025/02/26 14:12:10 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,24 +47,22 @@ static char	*extract_line(char *stash)
 	int		i;
 
 	i = 0;
-	// if no line return NULL
-	if (!stash[i])
+	if (!stash)
 		return (NULL);
-	// go to the eol
-	while (stash[i] && stash[i] != '\n')
+	while (stash[i] != '\n' || stash[i] != '\0')
 		i++;
-	// malloc to eol
 	extracted_line = ft_calloc(i + 2, sizeof(char));
 	i = 0;
-	// extracted_line = stash
-	while (stash[i] && stash[i] != '\n')
+	while (stash[i] != '\n' || stash[i] != '\0')
 	{
 		extracted_line[i] = stash[i];
 		i++;
 	}
-	// if eol is \0 or \n, replace eol by \n
-	if (stash[i] && stash[i] == '\n')
-		extracted_line[i++] = '\n';
+	if (stash[i] == '\n' || stash[i] == '\0')
+	{
+		extracted_line[i] = '\n';
+		extracted_line[i++] = '\0';
+	}
 	return (extracted_line);
 }
 
@@ -76,7 +74,7 @@ static char	*ft_read_file(char *stash, int fd)
 	bytes_read = 1;
 	tmpbuff = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
 	if (!tmpbuff)
-		return (free(stash), NULL);
+		return (NULL);
 	while (bytes_read > 0)
 	{
 		bytes_read = read(fd, tmpbuff, BUFFER_SIZE);
