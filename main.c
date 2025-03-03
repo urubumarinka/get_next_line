@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:37:44 by maborges          #+#    #+#             */
-/*   Updated: 2025/02/26 13:56:51 by maborges         ###   ########.fr       */
+/*   Updated: 2025/03/03 15:32:57 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(void)
 	int		line_number;
 
 	line_number = 0;
-	fd = open("41_no_nl", O_RDONLY);
+	fd = open("empty.txt", O_RDONLY);
 	if (fd < 0 || BUFFER_SIZE <= 0)
 	{
 		printf("This looks like an error!");

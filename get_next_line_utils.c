@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 15:33:09 by maborges          #+#    #+#             */
-/*   Updated: 2025/02/26 12:46:50 by maborges         ###   ########.fr       */
+/*   Updated: 2025/03/03 13:59:43 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	total_size = nmemb * size;
 	if (nmemb > 0 && size > 0 && (total_size / nmemb) != size)
 		return (NULL);
-	array = malloc(nmemb * size);
+	array = malloc(total_size);
 	if (!array)
 		return (NULL);
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 15:32:43 by maborges          #+#    #+#             */
-/*   Updated: 2025/02/26 14:12:10 by maborges         ###   ########.fr       */
+/*   Updated: 2025/03/03 15:52:35 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ static char	*join_buffers(char *stash, char *tmpbuff)
 	char	*tmp;
 
 	tmp = ft_strjoin(stash, tmpbuff);
+	if (!tmp)
+	{
+		free(stash);
+		return (NULL);
+	}
 	free(stash);
 	return (tmp);
 }
@@ -32,9 +37,12 @@ static char	*leftover(char *stash)
 	{
 		remaining_line += 1;
 		newstash = ft_strdup(remaining_line);
-		free(stash);
 		if (!newstash)
+		{
+			free(stash);
 			return (NULL);
+		}
+		free(stash);
 		return (newstash);
 	}
 	free(stash);
@@ -49,20 +57,20 @@ static char	*extract_line(char *stash)
 	i = 0;
 	if (!stash)
 		return (NULL);
-	while (stash[i] != '\n' || stash[i] != '\0')
+	while (stash[i] && stash[i] != '\n')
 		i++;
 	extracted_line = ft_calloc(i + 2, sizeof(char));
+	if (!extracted_line)
+		return (NULL);
 	i = 0;
-	while (stash[i] != '\n' || stash[i] != '\0')
+	while (stash[i] && stash[i] != '\n')
 	{
 		extracted_line[i] = stash[i];
 		i++;
 	}
-	if (stash[i] == '\n' || stash[i] == '\0')
-	{
-		extracted_line[i] = '\n';
-		extracted_line[i++] = '\0';
-	}
+	if (stash[i] == '\n')
+		extracted_line[i++] = '\n';
+	extracted_line[i] = '\0';
 	return (extracted_line);
 }
 
@@ -81,11 +89,19 @@ static char	*ft_read_file(char *stash, int fd)
 		if (bytes_read <= 0)
 		{
 			free (tmpbuff);
-			free (stash);
-			return (NULL);
+			if (bytes_read < 0)
+			{
+				int j = 0;
+				while (stash[j])
+					stash[j++] = '\0';
+				// some function have to zero out the stash
+			}
+			return (stash);
 		}
 		tmpbuff[bytes_read] = '\0';
 		stash = join_buffers(stash, tmpbuff);
+		if (!stash)
+			return (free(tmpbuff), NULL);
 		if (ft_strchr(stash, '\n'))
 			break ;
 	}
@@ -102,25 +118,28 @@ char	*get_next_line(int fd)
 	{
 		if (stash)
 			free(stash);
+		stash = NULL;
 		return (NULL);
 	}
 	if (!stash)
 		stash = ft_calloc(1, sizeof(char));
 	if (!stash)
 		return (NULL);
-	if (stash && !ft_strchr(stash, '\n'))
-		stash = ft_read_file(stash, fd);
-	if (!stash)
+	stash = ft_read_file(stash, fd);
+	if (!stash || *stash == '\0')
+	{
+		if (stash)
+			free(stash);
+		stash = NULL;
 		return (NULL);
+	}
 	line = extract_line(stash);
 	stash = leftover(stash);
+	if (!line || !stash)
+	{
+		free(stash);
+		stash = NULL;
+		return (NULL);
+	}
 	return (line);
 }
-
-/* //need to find the first new line char in the stash
-//use strchr to find the newline char
-//take out the line you want with substr
-// line = newline position - stash + 1 for the '\n'
-//make a temp variable that has the rest of the content that you want
-//free the stash of old material
-//update the stash with the remaining from temp variable */

@@ -1,13 +1,29 @@
 {
   "version": "0.2.0",
   "configurations": [
-    {
-      "name": "C/C++ Runner: Debug Session",
-      "type": "lldb",
-      "request": "launch",
-      "args": [],
-      "cwd": "/Users/urubu/42/get_next_line",
-      "program": "/Users/urubu/42/get_next_line/build/Debug/outDebug"
-    }
+   {
+	"name": "(gdb) Launch",
+	"type": "cppdbg",
+	"request": "launch",
+	"program": "${workspaceFolder}/a.out",
+	"args": [],
+	"stopAtEntry": false,
+	"cwd": "${workspaceFolder}",
+	"environment": [],
+	"externalConsole": false,
+	"MIMode": "gdb",
+	"setupCommands": [
+		{
+			"description": "Enable pretty-printing for gdb",
+			"text": "-enable-pretty-printing",
+			"ignoreFailures": true
+		},
+		{
+			"description": "Set Disassembly Flavor to Intel",
+			"text": "-gdb-set disassembly-flavor intel",
+			"ignoreFailures": true
+		}
+	]
+   }
   ]
 }
