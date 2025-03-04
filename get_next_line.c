@@ -6,46 +6,43 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 15:32:43 by maborges          #+#    #+#             */
-/*   Updated: 2025/03/03 18:27:57 by maborges         ###   ########.fr       */
+/*   Updated: 2025/03/04 12:43:29 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
-static char	*join_buffers(char *stash, char *tmpbuff)
+static char	*join_buffers(char **stash, char *tmpbuff)
 {
 	char	*tmp;
 
-	tmp = ft_strjoin(stash, tmpbuff);
+	tmp = ft_strjoin(*stash, tmpbuff);
+	free(*stash);
+	*stash = NULL;
 	if (!tmp)
-	{
-		free(stash);
 		return (NULL);
-	}
-	free(stash);
 	return (tmp);
 }
 
-static char	*leftover(char *stash)
+static char	*leftover(char **stash)
 {
 	char	*remaining_line;
 	char	*newstash;
 
-	remaining_line = ft_strchr(stash, '\n');
+	remaining_line = ft_strchr(*stash, '\n');
 	if (remaining_line)
 	{
 		remaining_line += 1;
 		newstash = ft_strdup(remaining_line);
+		free(*stash);
+		*stash = NULL;
 		if (!newstash)
-		{
-			free(stash);
 			return (NULL);
-		}
-		free(stash);
 		return (newstash);
 	}
-	free(stash);
+	free(*stash);
+	*stash = NULL;
 	return (NULL);
 }
 
@@ -76,7 +73,7 @@ static char	*extract_line(char *stash)
 	return (extracted_line);
 }
 
-static char	*ft_read_file(char *stash, int fd)
+static char	*ft_read_file(char **stash, int fd)
 {
 	char		*tmpbuff;
 	int			bytes_read;
@@ -91,17 +88,18 @@ static char	*ft_read_file(char *stash, int fd)
 		if (bytes_read <= 0)
 		{
 			free (tmpbuff);
-			return (stash);
+			return (*stash);
 		}
 		tmpbuff[bytes_read] = '\0';
-		stash = join_buffers(stash, tmpbuff);
+		*stash = join_buffers(stash, tmpbuff);
 		if (!stash)
 			return (free(tmpbuff), NULL);
-		if (ft_strchr(stash, '\n'))
+		if (ft_strchr(*stash, '\n'))
 			break ;
 	}
 	free(tmpbuff);
-	return (stash);
+	tmpbuff = NULL;
+	return (*stash);
 }
 
 char	*get_next_line(int fd)
@@ -120,7 +118,7 @@ char	*get_next_line(int fd)
 		stash = ft_calloc(1, sizeof(char));
 	if (!stash)
 		return (NULL);
-	stash = ft_read_file(stash, fd);
+	stash = ft_read_file(&stash, fd);
 	if (!stash || *stash == '\0')
 	{
 		if (stash)
@@ -129,6 +127,6 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	line = extract_line(stash);
-	stash = leftover(stash);
+	stash = leftover(&stash);
 	return (line);
 }
