@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:37:44 by maborges          #+#    #+#             */
-/*   Updated: 2025/03/03 17:17:37 by maborges         ###   ########.fr       */
+/*   Updated: 2025/03/04 22:01:30 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,60 @@
 
 int	main(void)
 {
-	int		fd;
-	char	*line;
-	int		line_number;
+	int		fd1;
+	int		fd2;
+	char	*line1;
+	char	*line2;
 
-	line_number = 0;
-	fd = open("multiple_nl.txt", O_RDONLY);
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	fd1 = open("multi_0.txt", O_RDONLY);
+	fd2 = open("multiline.txt", O_RDONLY);
+	if (1024 < fd1 < 0 || 1024 < fd2 < 0 || BUFFER_SIZE <= 0)
 	{
 		printf("This looks like an error!");
 		return (1);
 	}
-	while ((line = get_next_line(fd)) != NULL)
+	while (1)
 	{
-		if (!line)
-			return (0);
-		line_number++;
-		printf("%d :: %s", line_number, line);
-		free(line);
+		line1 = get_next_line(fd1);
+		line2 = get_next_line(fd2);
+		if (!line1 || !line2)
+		{
+			free(line1);
+			free(line2);
+			break ;
+		}
+		printf("%s", line1);
+		printf("%s", line2);
+		free(line1);
+		free(line2);
+		line1 = NULL;
+		line2 = NULL;
 	}
-	get_next_line(-1);
-	close(fd);
+	while (1)
+	{
+		line1 = get_next_line(fd1);
+		if (!line1)
+		{
+			free(line1);
+			break ;
+		}
+		printf("%s", line1);
+		free(line1);
+		line1 = NULL;
+	}
+	while (1)
+	{
+		line2 = get_next_line(fd2);
+		if (!line2)
+		{
+			free(line2);
+			break ;
+		}
+		printf("%s", line2);
+		free(line2);
+		line2 = NULL;
+	}
+	close(fd1);
+	close(fd2);
 	return (0);
 }

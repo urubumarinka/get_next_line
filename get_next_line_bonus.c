@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:57:04 by maborges          #+#    #+#             */
-/*   Updated: 2025/03/03 18:01:50 by maborges         ###   ########.fr       */
+/*   Updated: 2025/03/04 22:05:32 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,29 +106,29 @@ static char	*ft_read_file(char *stash, int fd)
 
 char	*get_next_line(int fd)
 {
-	static char		*stash;
+	static char		*stash[1024];
 	char			*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
-		if (stash)
-			free(stash);
-		stash = NULL;
+		if (stash[fd])
+			free(stash[fd]);
+		stash[fd] = NULL;
 		return (NULL);
 	}
-	if (!stash)
-		stash = ft_calloc(1, sizeof(char));
-	if (!stash)
+	if (!stash[fd])
+		stash[fd] = ft_calloc(1, sizeof(char));
+	if (!stash[fd])
 		return (NULL);
-	stash = ft_read_file(stash, fd);
-	if (!stash || *stash == '\0')
+	stash[fd] = ft_read_file(stash[fd], fd);
+	if (!stash[fd] || *stash[fd] == '\0')
 	{
-		if (stash)
-			free(stash);
-		stash = NULL;
+		if (stash[fd])
+			free(stash[fd]);
+		stash[fd] = NULL;
 		return (NULL);
 	}
-	line = extract_line(stash);
-	stash = leftover(stash);
+	line = extract_line(stash[fd]);
+	stash[fd] = leftover(stash[fd]);
 	return (line);
 }
