@@ -6,14 +6,14 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 15:32:43 by maborges          #+#    #+#             */
-/*   Updated: 2025/03/04 12:43:29 by maborges         ###   ########.fr       */
+/*   Updated: 2025/03/05 13:03:41 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
-static char	*join_buffers(char **stash, char *tmpbuff)
+/* static char	*join_buffers(char **stash, char *tmpbuff)
 {
 	char	*tmp;
 
@@ -23,7 +23,7 @@ static char	*join_buffers(char **stash, char *tmpbuff)
 	if (!tmp)
 		return (NULL);
 	return (tmp);
-}
+} */
 
 static char	*leftover(char **stash)
 {
@@ -91,7 +91,7 @@ static char	*ft_read_file(char **stash, int fd)
 			return (*stash);
 		}
 		tmpbuff[bytes_read] = '\0';
-		*stash = join_buffers(stash, tmpbuff);
+		*stash = ft_strjoin(stash, tmpbuff);
 		if (!stash)
 			return (free(tmpbuff), NULL);
 		if (ft_strchr(*stash, '\n'))

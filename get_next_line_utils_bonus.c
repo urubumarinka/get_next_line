@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 15:33:09 by maborges          #+#    #+#             */
-/*   Updated: 2025/03/03 18:01:38 by maborges         ###   ########.fr       */
+/*   Updated: 2025/03/05 13:04:45 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,16 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char **stash, char const *s2)
 {
 	char	*tmpstr;
 	size_t	i;
 	size_t	j;
 	size_t	count;
 
-	if (!s1 || !s2)
+	if (!stash || !s2)
 		return (NULL);
-	i = ft_strlen(s1);
+	i = ft_strlen(*stash);
 	j = ft_strlen(s2);
 	tmpstr = malloc((i + j + 1) * sizeof(char));
 	if (!tmpstr)
@@ -80,7 +80,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	count = 0;
 	while (count < i)
 	{
-		tmpstr[count] = s1[count];
+		tmpstr[count] = *stash[count];
 		count++;
 	}
 	while (count < j + i)
