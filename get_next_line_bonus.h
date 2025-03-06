@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 15:33:29 by maborges          #+#    #+#             */
-/*   Updated: 2025/03/06 21:05:35 by maborges         ###   ########.fr       */
+/*   Updated: 2025/03/06 22:41:07 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,5 @@ char		*ft_strchr(const char *s, int c);
 size_t		ft_strlen(const char *s);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_strdup(const char *s);
-
+char		*free_and_null(char **str);
 #endif

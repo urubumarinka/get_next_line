@@ -6,12 +6,11 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:57:04 by maborges          #+#    #+#             */
-/*   Updated: 2025/03/06 21:35:54 by maborges         ###   ########.fr       */
+/*   Updated: 2025/03/06 23:15:03 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
-#include <stdio.h>
 
 char	*get_next_line(int fd)
 {
@@ -20,14 +19,10 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
-		if(fd < 0)
+		if (fd < 0)
 			return (NULL);
 		else
-		{
-			free(stash[fd]);
-			stash[fd] = NULL;
-			return (NULL);
-		}
+			return (free_and_null(&stash[fd]));
 	}
 	if (!stash[fd])
 		stash[fd] = ft_calloc(1, sizeof(char));
@@ -35,19 +30,10 @@ char	*get_next_line(int fd)
 		return (NULL);
 	stash[fd] = ft_read_file(stash[fd], fd);
 	if (!stash[fd] || *stash[fd] == '\0')
-	{
-		if (stash[fd])
-			free(stash[fd]);
-		stash[fd] = NULL;
-		return (NULL);
-	}
+		return (free_and_null(&stash[fd]));
 	line = extract_line(stash[fd]);
-	if(!line)
-	{
-		free(stash[fd]);
-		stash[fd] = NULL;
-		return (NULL);
-	}
+	if (!line)
+		return (free_and_null(&stash[fd]));
 	stash[fd] = leftover(stash[fd]);
 	return (line);
 }
@@ -61,19 +47,12 @@ char	*ft_read_file(char *stash, int fd)
 	bytes_read = 1;
 	tmpbuff = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
 	if (!tmpbuff)
-	{
-		if (stash)
-			free(stash);
-		return (NULL);
-	}
+		return (free_and_null(&stash));
 	while (bytes_read > 0)
 	{
 		bytes_read = read(fd, tmpbuff, BUFFER_SIZE);
 		if (bytes_read <= 0)
-		{
-			free (tmpbuff);
-			return (stash);
-		}
+			return (free (tmpbuff), stash);
 		tmpbuff[bytes_read] = '\0';
 		temp = stash;
 		stash = ft_strjoin(stash, tmpbuff);
@@ -113,6 +92,7 @@ char	*extract_line(char *stash)
 	extracted_line[i] = '\0';
 	return (extracted_line);
 }
+
 char	*leftover(char *stash)
 {
 	char	*remaining_line;
@@ -132,5 +112,13 @@ char	*leftover(char *stash)
 		return (newstash);
 	}
 	free(stash);
+	return (NULL);
+}
+
+char	*free_and_null(char **str)
+{
+	if (*str)
+		free(*str);
+	*str = NULL;
 	return (NULL);
 }
