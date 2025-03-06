@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 15:33:29 by maborges          #+#    #+#             */
-/*   Updated: 2025/02/26 13:29:02 by maborges         ###   ########.fr       */
+/*   Updated: 2025/03/06 21:01:06 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # include <stdlib.h> /* free and malloc */
 
 char		*get_next_line(int fd);
+char		*ft_read_file(char *stash, int fd);
+char		*extract_line(char *stash);
+char		*leftover(char *stash);
 void		*ft_calloc(size_t nmemb, size_t size);
 void		*ft_memset(void *s, int c, size_t n);
 char		*ft_strchr(const char *s, int c);
