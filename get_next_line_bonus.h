@@ -6,11 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 15:33:29 by maborges          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/03/05 13:05:11 by maborges         ###   ########.fr       */
-=======
-/*   Updated: 2025/03/05 18:01:09 by maborges         ###   ########.fr       */
->>>>>>> cb1e2ad (Null'd stash, passing mull check)
+/*   Updated: 2025/03/03 18:01:11 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +22,12 @@
 
 # include <stdlib.h> /* free and malloc */
 
-char		*get_next_line(int fd);
+char		*get_next_line_bonus(int fd);
 void		*ft_calloc(size_t nmemb, size_t size);
 void		*ft_memset(void *s, int c, size_t n);
 char		*ft_strchr(const char *s, int c);
 size_t		ft_strlen(const char *s);
-char		*ft_strjoin(char **stash, char const *s2);
+char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_strdup(const char *s);
 
 #endif
