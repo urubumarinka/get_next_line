@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 17:57:04 by maborges          #+#    #+#             */
-/*   Updated: 2025/03/06 21:05:06 by maborges         ###   ########.fr       */
+/*   Updated: 2025/03/06 21:35:54 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,14 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
-		if (stash[fd])
+		if(fd < 0)
+			return (NULL);
+		else
+		{
 			free(stash[fd]);
-		stash[fd] = NULL;
-		return (NULL);
+			stash[fd] = NULL;
+			return (NULL);
+		}
 	}
 	if (!stash[fd])
 		stash[fd] = ft_calloc(1, sizeof(char));
