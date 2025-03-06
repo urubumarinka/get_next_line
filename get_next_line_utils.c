@@ -6,7 +6,7 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 15:33:09 by maborges          #+#    #+#             */
-/*   Updated: 2025/03/05 13:04:51 by maborges         ###   ########.fr       */
+/*   Updated: 2025/03/06 17:02:10 by maborges         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,18 +77,13 @@ char	*ft_strjoin(char **stash, char const *s2)
 	tmpstr = malloc((i + j + 1) * sizeof(char));
 	if (!tmpstr)
 		return (NULL);
-	count = 0;
-	while (count < i)
-	{
-		tmpstr[count] = *stash[count];
-		count++;
-	}
-	while (count < j + i)
-	{
-		tmpstr[count] = s2[count - i];
-		count++;
-	}
-	tmpstr[count] = '\0';
+	count = -1;
+	while (++count < i)
+		tmpstr[count] = s1[count];
+	count = -1;
+	while (++count < j)
+		tmpstr[count + i] = s2[count];
+	tmpstr[i + j] = '\0';
 	return (tmpstr);
 }
 

@@ -1,16 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 15:33:09 by maborges          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/03/05 13:04:45 by maborges         ###   ########.fr       */
+=======
+/*   Updated: 2025/03/04 12:17:46 by maborges         ###   ########.fr       */
+>>>>>>> cb1e2ad (Null'd stash, passing mull check)
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {

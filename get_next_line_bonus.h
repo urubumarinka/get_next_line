@@ -6,7 +6,11 @@
 /*   By: maborges <maborges@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 15:33:29 by maborges          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/03/05 13:05:11 by maborges         ###   ########.fr       */
+=======
+/*   Updated: 2025/03/05 18:01:09 by maborges         ###   ########.fr       */
+>>>>>>> cb1e2ad (Null'd stash, passing mull check)
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -31,7 +31,7 @@
       "request": "launch",
       "args": [],
       "cwd": "/Users/urubu/42/get_next_line",
-      "program": "/Users/urubu/42/get_next_line/build/Debug/outDebug"
+      "program": "/Users/urubu/42/get_next_line/a.out",
     }
   ]
 }
